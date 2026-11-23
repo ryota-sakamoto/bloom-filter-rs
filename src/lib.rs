@@ -10,6 +10,12 @@ pub struct BloomFilter<T: Hash> {
     phantom: PhantomData<T>,
 }
 
+impl<T: Hash> Default for BloomFilter<T> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl<T: Hash> BloomFilter<T> {
     pub fn new() -> Self {
         let items = vec![0; ITEMS_SIZE];
