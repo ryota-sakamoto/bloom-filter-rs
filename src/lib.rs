@@ -12,14 +12,14 @@ pub struct BloomFilter<T: Hash> {
 
 impl<T: Hash> Default for BloomFilter<T> {
     fn default() -> Self {
-        Self::new()
+        Self::new(ITEMS_SIZE, HASH_COUNT)
     }
 }
 
 impl<T: Hash> BloomFilter<T> {
-    pub fn new() -> Self {
-        let items = vec![0; ITEMS_SIZE];
-        let states = vec![0; HASH_COUNT]
+    pub fn new(items_size: usize, hash_count: usize) -> Self {
+        let items = vec![0; items_size];
+        let states = vec![0; hash_count]
             .into_iter()
             .map(|_| RandomState::new())
             .collect();
@@ -55,7 +55,7 @@ mod tests {
 
     #[test]
     fn simple_exist() {
-        let mut b = BloomFilter::new();
+        let mut b = BloomFilter::default();
         b.insert(&123);
         assert!(b.exist(&123));
         assert!(!b.exist(&456));
