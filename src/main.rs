@@ -49,3 +49,16 @@ fn main() {
     assert!(b.exist(&123));
     assert!(!b.exist(&456));
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::BloomFilter;
+
+    #[test]
+    fn simple_exist() {
+        let mut b = BloomFilter::new();
+        b.insert(&123);
+        assert!(b.exist(&123));
+        assert!(!b.exist(&456));
+    }
+}
