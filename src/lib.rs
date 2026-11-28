@@ -64,10 +64,29 @@ mod tests {
 
     proptest! {
         #[test]
-        fn insert_exist(v in any::<i32>()) {
+        fn insert_exist_i32(v in any::<i32>()) {
             let mut b = BloomFilter::default();
             b.insert(&v);
             prop_assert!(b.exist(&v));
+        }
+
+        #[test]
+        fn insert_exist_string(v in any::<String>()) {
+            let mut b = BloomFilter::default();
+            b.insert(&v);
+            prop_assert!(b.exist(&v));
+        }
+
+        #[test]
+        fn insert_exist_items(items in prop::collection::vec(any::<i32>(), 1..100)) {
+            let mut b = BloomFilter::new(1024, 3);
+            for v in &items {
+                b.insert(v);
+            }
+
+            for v in &items {
+                prop_assert!(b.exist(v));
+            }
         }
     }
 }
