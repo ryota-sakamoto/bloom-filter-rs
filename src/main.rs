@@ -1,7 +1,7 @@
 use bloom_filter_rs::BloomFilter;
 
 fn main() {
-    let inserted_ratio = [0.1, 0.25, 0.5, 0.75, 1.0];
+    let inserted_ratio = [0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 1.0];
 
     println!(
         "| items_size | hash_count |{}|",
