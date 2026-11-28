@@ -52,6 +52,7 @@ impl<T: Hash> BloomFilter<T> {
 #[cfg(test)]
 mod tests {
     use crate::BloomFilter;
+    use proptest::prelude::*;
 
     #[test]
     fn simple_exist() {
@@ -59,5 +60,14 @@ mod tests {
         b.insert(&123);
         assert!(b.exist(&123));
         assert!(!b.exist(&456));
+    }
+
+    proptest! {
+        #[test]
+        fn insert_exist(v in any::<i32>()) {
+            let mut b = BloomFilter::default();
+            b.insert(&v);
+            assert!(b.exist(&v));
+        }
     }
 }
