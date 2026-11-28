@@ -67,7 +67,7 @@ mod tests {
         fn insert_exist(v in any::<i32>()) {
             let mut b = BloomFilter::default();
             b.insert(&v);
-            assert!(b.exist(&v));
+            prop_assert!(b.exist(&v));
         }
     }
 }
